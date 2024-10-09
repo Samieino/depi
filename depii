@@ -1,0 +1,279 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "736c307d",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-10-09T00:49:50.802088Z",
+     "iopub.status.busy": "2024-10-09T00:49:50.801472Z",
+     "iopub.status.idle": "2024-10-09T00:49:51.922024Z",
+     "shell.execute_reply": "2024-10-09T00:49:51.920636Z"
+    },
+    "papermill": {
+     "duration": 1.128621,
+     "end_time": "2024-10-09T00:49:51.925254",
+     "exception": false,
+     "start_time": "2024-10-09T00:49:50.796633",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "import pandas as pd"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "cae1dd70",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-10-09T00:49:51.932763Z",
+     "iopub.status.busy": "2024-10-09T00:49:51.932175Z",
+     "iopub.status.idle": "2024-10-09T00:49:52.265084Z",
+     "shell.execute_reply": "2024-10-09T00:49:52.263521Z"
+    },
+    "papermill": {
+     "duration": 0.339615,
+     "end_time": "2024-10-09T00:49:52.267704",
+     "exception": false,
+     "start_time": "2024-10-09T00:49:51.928089",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "                                          image_path\n",
+      "0  /kaggle/input/construction-site-safety-image-d...\n",
+      "1  /kaggle/input/construction-site-safety-image-d...\n",
+      "2  /kaggle/input/construction-site-safety-image-d...\n",
+      "3  /kaggle/input/construction-site-safety-image-d...\n",
+      "4  /kaggle/input/construction-site-safety-image-d...\n"
+     ]
+    }
+   ],
+   "source": [
+    "import os\n",
+    "import pandas as pd\n",
+    "\n",
+    "# Define the path to the images directory\n",
+    "image_dir = '/kaggle/input/construction-site-safety-image-dataset-roboflow/css-data/train/images'\n",
+    "\n",
+    "# Get a list of all image file names in the directory\n",
+    "image_files = [f for f in os.listdir(image_dir) if f.endswith('.jpg') or f.endswith('.png')]\n",
+    "\n",
+    "# Create a pandas DataFrame with the file names or full paths\n",
+    "image_data = pd.DataFrame({\n",
+    "    'image_path': [os.path.join(image_dir, img) for img in image_files]\n",
+    "})\n",
+    "\n",
+    "# Display the DataFrame\n",
+    "print(image_data.head())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "26f98f4e",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-10-09T00:49:52.275511Z",
+     "iopub.status.busy": "2024-10-09T00:49:52.274853Z",
+     "iopub.status.idle": "2024-10-09T00:50:10.284501Z",
+     "shell.execute_reply": "2024-10-09T00:50:10.283061Z"
+    },
+    "papermill": {
+     "duration": 18.01705,
+     "end_time": "2024-10-09T00:50:10.287459",
+     "exception": false,
+     "start_time": "2024-10-09T00:49:52.270409",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>label_file</th>\n",
+       "      <th>class_id</th>\n",
+       "      <th>x_center</th>\n",
+       "      <th>y_center</th>\n",
+       "      <th>width</th>\n",
+       "      <th>height</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>youtube-270_jpg.rf.9ae5283f885f67c55f351ac2d03...</td>\n",
+       "      <td>9</td>\n",
+       "      <td>0.56171875</td>\n",
+       "      <td>0.0234375</td>\n",
+       "      <td>0.0578125</td>\n",
+       "      <td>0.046875</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>youtube-270_jpg.rf.9ae5283f885f67c55f351ac2d03...</td>\n",
+       "      <td>5</td>\n",
+       "      <td>0.20703125</td>\n",
+       "      <td>0.1703125</td>\n",
+       "      <td>0.0328125</td>\n",
+       "      <td>0.0859375</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>youtube-270_jpg.rf.9ae5283f885f67c55f351ac2d03...</td>\n",
+       "      <td>7</td>\n",
+       "      <td>0.21171875</td>\n",
+       "      <td>0.165625</td>\n",
+       "      <td>0.0140625</td>\n",
+       "      <td>0.03125</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>youtube-270_jpg.rf.9ae5283f885f67c55f351ac2d03...</td>\n",
+       "      <td>8</td>\n",
+       "      <td>0.2125</td>\n",
+       "      <td>0.26953125</td>\n",
+       "      <td>0.425</td>\n",
+       "      <td>0.5390625</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>youtube-270_jpg.rf.9ae5283f885f67c55f351ac2d03...</td>\n",
+       "      <td>4</td>\n",
+       "      <td>0.8</td>\n",
+       "      <td>0.178125</td>\n",
+       "      <td>0.4</td>\n",
+       "      <td>0.35625</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                                          label_file class_id    x_center  \\\n",
+       "0  youtube-270_jpg.rf.9ae5283f885f67c55f351ac2d03...        9  0.56171875   \n",
+       "1  youtube-270_jpg.rf.9ae5283f885f67c55f351ac2d03...        5  0.20703125   \n",
+       "2  youtube-270_jpg.rf.9ae5283f885f67c55f351ac2d03...        7  0.21171875   \n",
+       "3  youtube-270_jpg.rf.9ae5283f885f67c55f351ac2d03...        8      0.2125   \n",
+       "4  youtube-270_jpg.rf.9ae5283f885f67c55f351ac2d03...        4         0.8   \n",
+       "\n",
+       "     y_center      width     height  \n",
+       "0   0.0234375  0.0578125   0.046875  \n",
+       "1   0.1703125  0.0328125  0.0859375  \n",
+       "2    0.165625  0.0140625    0.03125  \n",
+       "3  0.26953125      0.425  0.5390625  \n",
+       "4    0.178125        0.4    0.35625  "
+      ]
+     },
+     "execution_count": 3,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "import os\n",
+    "import pandas as pd\n",
+    "\n",
+    "# Define the path to the labels directory\n",
+    "label_dir = '/kaggle/input/construction-site-safety-image-dataset-roboflow/css-data/train/labels'\n",
+    "\n",
+    "# Initialize an empty list to store the annotation data\n",
+    "annotations = []\n",
+    "\n",
+    "# Iterate through each label file\n",
+    "for label_file in os.listdir(label_dir):\n",
+    "    # Construct the full file path\n",
+    "    label_path = os.path.join(label_dir, label_file)\n",
+    "    \n",
+    "    # Read the contents of the label file\n",
+    "    with open(label_path, 'r') as file:\n",
+    "        for line in file:\n",
+    "            # Split the line into parts and add to annotations\n",
+    "            annotations.append([label_file, *line.strip().split()])\n",
+    "\n",
+    "# Create a DataFrame from the annotations\n",
+    "annotations_df = pd.DataFrame(annotations, columns=['label_file', 'class_id', 'x_center', 'y_center', 'width', 'height'])\n",
+    "\n",
+    "# Display the first few rows of the DataFrame\n",
+    "annotations_df.head()"
+   ]
+  }
+ ],
+ "metadata": {
+  "kaggle": {
+   "accelerator": "none",
+   "dataSources": [
+    {
+     "datasetId": 2919095,
+     "sourceId": 5048288,
+     "sourceType": "datasetVersion"
+    }
+   ],
+   "dockerImageVersionId": 30786,
+   "isGpuEnabled": false,
+   "isInternetEnabled": false,
+   "language": "python",
+   "sourceType": "notebook"
+  },
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.14"
+  },
+  "papermill": {
+   "default_parameters": {},
+   "duration": 23.378721,
+   "end_time": "2024-10-09T00:50:10.812682",
+   "environment_variables": {},
+   "exception": null,
+   "input_path": "__notebook__.ipynb",
+   "output_path": "__notebook__.ipynb",
+   "parameters": {},
+   "start_time": "2024-10-09T00:49:47.433961",
+   "version": "2.6.0"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
